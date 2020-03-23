@@ -1,0 +1,10 @@
+<launch>
+    <arg name="map" value="icra2020"/>
+    <node pkg="map_server" type="map_server" name="map_server_node" args="$(find robot_bringup)/maps/$(arg map).yaml"/>
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find decision_simulate)/world/decision_simulate.world" respawn="false" >
+        <param name="base_watchdog_timeout" value="0.01" />
+    </node>
+    <node pkg="decision_simulate" type="shootinfo" name="shoot_info_test" respawn="false" output="screen" />
+    <node pkg="decision_simulate" type="simulate" name="robot_simulation_node" respawn="false" output="screen"/>
+    <node pkg="plan_send_test" type="plan_send_test" name="plan_send_node" output="screen"/>
+</launch>
